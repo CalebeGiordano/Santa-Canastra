@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Canastra - Queijos Artesanais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --secondary: #3B82F6;
+            --accent: #2563EB;
+            --light: #FFFFFF;
+            --dark: #1E3A8A;
+            --text: #1F2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        header {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 58, 138, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .logo-container {
+            margin-bottom: 30px;
+        }
+        
+        .logo-container h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+        }
+        
+        .logo-container p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(30, 58, 138, 0.9);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background-color: var(--primary);
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a:hover {
+            color: #93C5FD;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .about {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-weight: 400;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .menu-item-description {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 400;
+        }
+        
+        .menu-item-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--accent);
+        }
+        
+        .contact {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 400;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .social-links a {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .contact-form textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background-color: var(--accent);
+        }
+        
+        .map-container {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        #map {
+            height: 400px;
+            width: 100%;
+            border: 1px solid #E5E7EB;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: #E5E7EB;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .footer-column form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-column input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .footer-column button {
+            padding: 10px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-column button:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: white;
+            transition: right 0.3s ease;
+            z-index: 1001;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #E5E7EB;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .cart-header h3 {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .cart-items {
+            padding: 20px;
+            height: calc(100% - 200px);
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+        
+        .cart-item-price {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: #F3F4F6;
+            border: none;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #E5E7EB;
+            border-radius: 3px;
+        }
+        
+        .remove-item {
+            color: #EF4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .cart-total {
+            padding: 20px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .cart-total p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+        
+        .cart-total .total {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .checkout-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: var(--accent);
+        }
+        
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .cart-overlay.active {
+            display: block;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .checkout-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1002;
+            max-width: 500px;
+            width: 90%;
+            display: none;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .checkout-modal.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .close-checkout {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .checkout-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #F9FAFB;
+        }
+        
+        .payment-methods {
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .payment-method input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .confirm-purchase {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .confirm-purchase:hover {
+            background-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 70%;
+                height: calc(100vh - 80px);
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 30px;
+                transition: right 0.3s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .logo-container h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_API&callback=initMap" async defer></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/img/Logo certa.png" alt="Santa Canastra">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#menu">Cardápio</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li>
+                    <div class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+    
+    <header id="home">
+        <div class="video-container">
+            <video autoplay muted loop>
+                <source src="/videos/6004955-hd_1920_1080_30fps.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos HTML5.
+            </video>
+        </div>
+        <div class="overlay">
+            <div class="logo-container">
+                <h1>Santa Canastra</h1>
+                <p>Queijos artesanais produzidos com tradição e amor no coração de Brasília</p>
+            </div>
+        </div>
+    </header>
+    
+    <section id="about" class="about">
+        <h2 class="section-title">Nossa História</h2>
+        <p>Há mais de três gerações, a família Santa Canastra mantém viva a tradição da produção artesanal de queijos. Nossos queijos são feitos com leite cru de vacas criadas soltas no pasto, seguindo rigorosamente as técnicas tradicionais que garantem sabor e qualidade incomparáveis.</p>
+        <p>Cada peça é cuidadosamente elaborada por nossos mestres queijeiros, que dominam o ofício transmitido de pai para filho. Localizados no Jardim Botânico de Brasília, combinamos a tradição mineira com a excelência da capital federal.</p>
+        <p>Na Santa Canastra, valorizamos a produção sustentável e o respeito aos animais e ao meio ambiente. Nossas vacas são tratadas com cuidado e alimentadas apenas com pasto natural, sem hormônios ou antibióticos, garantindo não apenas a qualidade do queijo, mas também o bem-estar animal.</p>
+    </section>
+    
+    <section id="menu">
+        <h2 class="section-title">Nossos Queijos</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-item">
+                <img src="/img/queijo-do-reinaldo-73dca31e15a08f862417443806704903-480-0.jpg" alt="Queijo Canastra">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo Canastra Tradicional</h3>
+                    <p class="menu-item-description">Nosso carro-chefe, produzido exatamente como faziam os primeiros colonizadores da região. Textura semifirme, casca ligeiramente enrugada e sabor marcante que evolui do suave ao picante conforme a maturação.</p>
+                    <p class="menu-item-price">R$ 45,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="menu-item">
+                <img src="/img/mauro.webp" alt="Queijo Mauro">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo Mauro</h3>
+                    <p class="menu-item-description">Com período de cura intermediário, este queijo apresenta textura mais firme que o tradicional, mas ainda mantém a cremosidade característica. Perfeito para grelhados e sanduíches.</p>
+                    <p class="menu-item-price">R$ 52,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="menu-item">
+                <img src="/img/trufado.jpg" alt="Queijo Trufado">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo Trufado</h3>
+                    <p class="menu-item-description">Maturado por no mínimo 60 dias, desenvolve sabores intensos e complexos, com notas picantes e de nozes. Textura firme, ideal para degustação com vinhos encorpados.</p>
+                    <p class="menu-item-price">R$ 68,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="menu-item">
+                <img src="queijo-frescal.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description">Consumido poucos dias após a produção, mantém alto teor de umidade, resultando em textura macia e sabor suave e levemente ácido. Perfeito para café da manhã ou lanches leves.</p>
+                    <p class="menu-item-price">R$ 38,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="menu-item">
+                <img src="queijo-pimenta.jpg" alt="Queijo com ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo  </h3>
+                    <p class="menu-item-description">Versão aromatizada com  dedo-de-moça desidratada. O equilíbrio entre a cremosidade do queijo e o leve ardido da  cria uma experiência sensorial única.</p>
+                    <p class="menu-item-price">R$ 55,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="menu-item">
+                <img src="queijo-ervas.jpg" alt="Queijo com  ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo   </h3>
+                    <p class="menu-item-description">Aromatizado com uma seleção de  frescas da região, incluindo alecrim, tomilho e orégano. Cada mordida revela camadas de sabor que complementam a riqueza do queijo.</p>
+                    <p class="menu-item-price">R$ 58,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 7 -->
+            <div class="menu-item">
+                <img src="queijo-defumado.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description"> artesanalmente com madeira de lei, adquirindo aroma marcante e sabor inconfundível. Textura firme e cor dourada característica do processo de defumação natural.</p>
+                    <p class="menu-item-price">R$ 62,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 8 -->
+            <div class="menu-item">
+                <img src="queijo-minas.jpg" alt="Queijo  ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo  </h3>
+                    <p class="menu-item-description">Versão clássica do queijo mineiro, com textura macia e sabor suave. Ideal para quem aprecia a tradição dos queijos de  Gerais em sua forma mais pura e autêntica.</p>
+                    <p class="menu-item-price">R$ 42,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 9 -->
+            <div class="menu-item">
+                <img src="queijo-coalho.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description">Típico do Nordeste brasileiro, perfeito para assar na churrasqueira. Mantém sua forma quando aquecido, desenvolvendo crosta dourada e interior cremoso. Sabor suave e levemente salgado.</p>
+                    <p class="menu-item-price">R$ 48,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 10 -->
+            <div class="menu-item">
+                <img src="queijo-brie.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description">Nosso queijo de estilo francês, com casca branca comestível e interior cremoso. Sabor delicado com notas de cogumelos e manteiga. Perfeito para acompanhar pães crocantes e frutas.</p>
+                    <p class="menu-item-price">R$ 75,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 11 -->
+            <div class="menu-item">
+                <img src="queijo-gorgonzola.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description">Nosso queijo azul italiano, com veios característicos de cultivo de penicillium. Sabor intenso e picante, mas com cremosidade que equilibra o paladar. Excelente para molhos e acompanhamento de vinhos do Porto.</p>
+                    <p class="menu-item-price">R$ 82,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <!-- Item 12 -->
+            <div class="menu-item">
+                <img src="queijo-provolone.jpg" alt="Queijo ">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">Queijo </h3>
+                    <p class="menu-item-description">Queijo italiano de massa filata, com sabor marcante e textura elástica. Versão defumada disponível sob encomenda. Excelente para derreter ou consumir em fatias.</p>
+                    <p class="menu-item-price">R$ 65,00 / kg</p>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        
+                    <h3>Informações</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jardim Botânico de Brasília - DF</p>
+                    <p><i class="fas fa-phone"></i> (61) 99999-9999</p>
+                    <p><i class="fas fa-envelope"></i> contato@santacanastra.com.br</p>
+                    <p><i class="fas fa-clock"></i> Segunda a Sexta: 8h às 18h</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/santacanastra?igsh=YjlmZGFuNTBoN3ps" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5561995144072?text=Olá,%20gostaria%20de%20informações%20sobre%20os%20queijos" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                   
+                </div>
+            </div>
+            <div class="map-container">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Onde Estamos</h3>
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#menu">Cardápio</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            
+             
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Santa Canastra - Queijos Artesanais. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <!-- Carrinho de Compras -->
+    <div class="cart-overlay"></div>
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+        </div>
+        <div class="cart-total">
+            <p>Subtotal: <span class="subtotal">R$ 0,00</span></p>
+            <p>Frete: <span class="shipping">R$ 0,00</span></p>
+            <p class="total">Total: <span class="total-amount">R$ 0,00</span></p>
+            <button class="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>
+    
+    <!-- Modal de Checkout -->
+    <div class="checkout-modal">
+        <div class="checkout-header">
+            <h3>Finalizar Compra</h3>
+            <button class="close-checkout">&times;</button>
+        </div>
+        <form class="checkout-form">
+            <h4>Informações Pessoais</h4>
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="tel" placeholder="Telefone" required>
+            
+            <h4>Endereço de Entrega</h4>
+            <input type="text" placeholder="CEP" required>
+            <input type="text" placeholder="Endereço" required>
+            <input type="text" placeholder="Número" required>
+            <input type="text" placeholder="Complemento">
+            <input type="text" placeholder="Bairro" required>
+            <input type="text" placeholder="Cidade" required>
+            <input type="text" placeholder="Estado" required>
+            
+            <div class="payment-methods">
+                <h4>Forma de Pagamento</h4>
+                <div class="payment-method">
+                    <input type="radio" id="credit-card" name="payment" value="credit-card" checked>
+                    <label for="credit-card">Cartão de Crédito</label>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" id="pix" name="payment" value="pix">
+                    <label for="pix">PIX</label>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
+                    <label for="bank-transfer">Transferência Bancária</label>
+                </div>
+            </div>
+            
+            <div id="credit-card-fields">
+                <input type="text" placeholder="Número do Cartão" required>
+                <input type="text" placeholder="Nome no Cartão" required>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" placeholder="Validade (MM/AA)" style="flex: 1;" required>
+                    <input type="text" placeholder="CVV" style="flex: 1;" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="confirm-purchase">Confirmar Compra</button>
+        </form>
+    </div>
+    
+    <script>
+        // Menu Mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Cart functionality
+        const cartBtn = document.querySelector('.cart-icon');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const closeCartBtn = document.querySelector('.close-cart');
+        const cartOverlay = document.querySelector('.cart-overlay');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const cartCount = document.querySelector('.cart-count');
+        const subtotalElement = document.querySelector('.subtotal');
+        const shippingElement = document.querySelector('.shipping');
+        const totalElement = document.querySelector('.total-amount');
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const checkoutModal = document.querySelector('.checkout-modal');
+        const closeCheckoutBtn = document.querySelector('.close-checkout');
+        const paymentMethods = document.querySelectorAll('input[name="payment"]');
+        const creditCardFields = document.getElementById('credit-card-fields');
+        
+        let cart = [];
+        
+        // Open/close cart
+        cartBtn.addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            cartOverlay.classList.add('active');
+        });
+        
+        closeCartBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('active');
+        });
+        
+        cartOverlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('active');
+            checkoutModal.classList.remove('active');
+        });
+        
+        // Add to cart
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const menuItem = btn.closest('.menu-item');
+                const title = menuItem.querySelector('.menu-item-title').textContent;
+                const price = parseFloat(menuItem.querySelector('.menu-item-price').textContent.replace(/[^\d,]/g, '').replace(',', '.'));
+                const image = menuItem.querySelector('img').src;
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.title === title);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        title,
+                        price,
+                        image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                cartSidebar.classList.add('open');
+                cartOverlay.classList.add('active');
+            });
+        });
+        
+        // Update cart UI
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach((item, index) => {
+                subtotal += item.price * item.quantity;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-index="${index}">-</button>
+                            <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                            <button class="quantity-btn plus" data-index="${index}">+</button>
+                            <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Calculate shipping (example: free for orders over R$ 150,00)
+            const shipping = subtotal >= 150 ? 0 : 15;
+            const total = subtotal + shipping;
+            
+            subtotalElement.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            shippingElement.textContent = `R$ ${shipping.toFixed(2).replace('.', ',')}`;
+            totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity -= 1;
+                        updateCart();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    cart[index].quantity += 1;
+                    updateCart();
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.closest('button').getAttribute('data-index');
+                    cart.splice(index, 1);
+                    updateCart();
+                });
+            });
+        }
+        
+        // Checkout
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+            
+            checkoutModal.classList.add('active');
+            cartOverlay.classList.add('active');
+        });
+        
+        closeCheckoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.remove('active');
+            cartOverlay.classList.remove('active');
+        });
+        
+        // Payment method toggle
+        paymentMethods.forEach(method => {
+            method.addEventListener('change', (e) => {
+                if (e.target.value === 'credit-card') {
+                    creditCardFields.style.display = 'block';
+                } else {
+                    creditCardFields.style.display = 'none';
+                }
+            });
+        });
+        
+        // Form submission
+        document.querySelector('.checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Compra realizada com sucesso! Obrigado por escolher a Santa Canastra.');
+            cart = [];
+            updateCart();
+            checkoutModal.classList.remove('active');
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Google Maps - Jardim Botânico de Brasília
+        function initMap() {
+            const location = { lat: -15.8700, lng: -47.8413 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+                styles: [
+                    {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }]
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "labels.icon",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
+            });
+            
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "Santa Canastra Queijaria",
+                icon: {
+                    url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                }
+            });
+        }
+    </script>
+</body>
+</html>
